@@ -1,0 +1,15 @@
+.alert {
+    display: none;
+}
+
+.clear-float:after,
+.clear-float:before {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.skills .label {
+    display: inline-block;
+    margin: 0 3px;
+}
