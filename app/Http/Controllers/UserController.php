@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\UserModel;
-use App\Model\UserProfileModel;
+use App\Model\User;
+use App\Model\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +14,8 @@ class UserController extends Controller
 {
     public function api_profile($id)
     {
-        $user_model = new UserModel();
-        $user_profile_model = new UserProfileModel();
+        $user_model = new User();
+        $user_profile_model = new UserProfile();
         $user_data = $user_model->find($id);
         $user_profile = $user_profile_model->find($id);
         if (null !== $user_profile) {
@@ -26,6 +26,22 @@ class UserController extends Controller
         if (count($user_data) > 0) {
             $this->response_json->status = true;
             $this->response_json->data = $user_data;
+        }
+        return $this->__json();
+    }
+
+    public function update_image(Request $request) {
+        if ($this->isPost()) {
+            $rules = array(
+                'photo'=> 'mimes:jpg,jpeg,JPEG,png,bmp|max:2024'
+            );
+
+            if (null !== $this->validate_v2($request, $rules)) {
+                $this->response_json->message = $this->validate_V2($request, $rules);
+                return $this->__json();
+            }
+
+            $data = $request->all();
         }
         return $this->__json();
     }
@@ -43,10 +59,7 @@ class UserController extends Controller
                 return $this->__json();
             }
 
-            $data = array(
-                'email' => $request['email'],
-                'password' => $request['password']
-            );
+            $data = $request->all();
 
             if (Auth::attempt($data)) {
                 $this->response_json->status = true;
@@ -82,7 +95,7 @@ class UserController extends Controller
     {
         if ($this->isPost()) {
             if ($request['flag'] == 1) {
-                $user_profile_model = new UserProfileModel();
+                $user_profile_model = new UserProfile();
                 $where = array(
                     'id'=> $request['id']
                 );
@@ -95,13 +108,13 @@ class UserController extends Controller
                 }
             } else {
                 $rules = array(
-                    'email'=> 'required|email'
+                    'email'=> 'required|email|unique:users'
                 );
                 if (null !== $this->validate_v2($request, $rules)) {
                     $this->response_json->message = $this->validate_v2($request, $rules);
                     return $this->__json();
                 }
-                $user_model = new UserModel();
+                $user_model = new User();
                 $where = array(
                     'id'=> $request['id']
                 );
@@ -150,7 +163,7 @@ class UserController extends Controller
             if (null === $request['agree-terms']) {
                 $this->response_json->message = 'Please agree our terms and condition.';
             } else {
-                $user_model = new UserModel();
+                $user_model = new User();
                 $data = array();
                 foreach ($user_model->getFillable() as $field) {
                     if ($field == 'password') {
@@ -161,7 +174,7 @@ class UserController extends Controller
                         $data[$field] = $request[$field];
                     }
                 }
-                UserModel::create($data);
+                User::create($data);
                 $this->response_json->status = true;
             }
             return $this->__json();

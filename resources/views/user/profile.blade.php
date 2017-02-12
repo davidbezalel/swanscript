@@ -17,7 +17,15 @@
                 <div class="box box-info">
                     <div class="box-body box-profile">
                         <input type="hidden" id="id" value="{!! $data['id'] !!}">
-                        <img class="user_photo profile-user-img img-responsive img-circle" src="" alt="User profile picture">
+                        <div class="photo-blur-container" id="upload-image-container">
+                            <img id="img-result" class="profile-user-img img-responsive img-circle" src="/images/user/user_avatar.png">
+                            <div class="photo-blur-front">
+                            </div>
+                        </div>
+                        <form action="" id="upload-image" enctype="multipart/form-data">
+                            <input type="file" id="user-image" name="photo" style="display: none">
+                            <button type="submit" style="display: none"></button>
+                        </form>
                         <h3 class="user_name profile-username text-center"></h3>
                         <p class="text-muted text-center user_alias_email"></p>
                     </div>

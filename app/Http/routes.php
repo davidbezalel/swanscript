@@ -5,7 +5,7 @@
  */
 
 /**
- * web display
+ * web view
  */
 
 /* error */
@@ -25,13 +25,14 @@ Route::get('author/profile', 'UserController@profile');
 
 /**
  * API
- * process data and send to the web
+ * process data and send to the web view
  */
 
-/* admin panel*/
+/* admin panel */
 Route::get('author/logout', 'UserController@logout');
 Route::post('author/register', 'UserController@register');
 Route::post('author/login', 'UserController@login');
 Route::get('api/author/profile/{id}', 'UserController@api_profile');
 Route::post('api/author/profile/update', 'UserController@profile');
+Route::post('api/author/profile/update-image', 'UserController@update_image');
 

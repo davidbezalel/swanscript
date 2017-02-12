@@ -13,3 +13,40 @@
     display: inline-block;
     margin: 0 3px;
 }
+
+.photo-blur-container img,
+.photo-blur-front {
+    transition: .3s all;
+}
+
+.photo-blur-container {
+    position: relative;
+    margin: 0 auto;
+    width: 90px;
+    height: 90px;
+}
+
+.photo-blur-front {
+    opacity: 0;
+    width: 30px;
+    height: 30px;
+    top: 35%;
+    left: 35%;
+    background: url('/images/default_icons/edit.png') no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+
+.photo-blur-container img {
+    background: transparent;
+}
+
+.photo-blur-container:hover img{
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.photo-blur-container:hover .photo-blur-front {
+    opacity: 1;
+}
+

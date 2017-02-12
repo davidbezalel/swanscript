@@ -25,7 +25,7 @@ jQuery(document).ready(function () {
                 } else {
                     $('.user_photo').attr('src', '/images/user/' + data.photo);
                 }
-                $('.user_created_at').text('Member since ');
+                $('.role').text(data.role);
 
                 /* data in aside */
                 $('.education').text(data.profile.education);
@@ -60,6 +60,10 @@ jQuery(document).ready(function () {
         });
     }
 
+    function save_image() {
+        var data = new FormData($('#upload-image')[0]);
+    }
+
     load_user_data(id);
 
     $('#update_profile').submit(function (event) {
@@ -78,7 +82,23 @@ jQuery(document).ready(function () {
                 }
             }
         });
-    })
+    });
+
+    $('#upload-image-container').click(function() {
+        $('#user-image').click();
+    });
+
+    $('#user-image').change(function() {
+        if ($('#user-image')[0].files && $('#user-image')[0].files[0]) {
+            var _reader = new FileReader();
+            _reader.onload = function (e) {
+                file = e.target.files;
+                $('#img-result').attr('src', e.target.result);
+            };
+            _reader.readAsDataURL($('#user-image')[0].files[0]);
+            save_image();
+        }
+    });
 
     $('#update_setting').submit(function (event) {
         event.preventDefault();

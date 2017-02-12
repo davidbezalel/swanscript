@@ -64,7 +64,7 @@
 
 								<p>
 									<span class="user_name"></span>
-									<small class="user_created_at"></small>
+									<small class="role"></small>
 								</p>
 							</li>
 

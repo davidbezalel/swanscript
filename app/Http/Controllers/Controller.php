@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 class Controller extends BaseController
 {
     public $data;
-    public $response_json;
+    protected $response_json;
 
     public function __construct()
     {

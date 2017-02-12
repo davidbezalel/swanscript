@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserModel extends Model
+class User extends Model
 {
     protected $table = 'users';
     protected $hidden = ['password', 'remember_token'];

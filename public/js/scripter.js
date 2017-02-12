@@ -23,7 +23,7 @@ jQuery(document).ready(function () {
                 } else {
                     $('.user_photo').attr('src', '/images/user/' + data.photo);
                 }
-                $('.user_created_at').text('Member since ');
+                $('.role').text(data.role);
             }
         });
     }
