@@ -23,6 +23,8 @@ Route::get('author/register', 'UserController@register');
 Route::get('author/login', 'UserController@login');
 Route::get('author/profile', 'UserController@profile');
 
+Route::get('users', 'UserController@index');
+
 /**
  * API
  * process data and send to the web view

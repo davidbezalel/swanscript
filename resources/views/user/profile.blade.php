@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header clear-float">
         <ol class="breadcrumb">
-            <li><a href="/author"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="/users"><i class="fa fa-dashboard"></i> Users</a></li>
             <li class="active">User profile</li>
         </ol>
     </section>
@@ -22,9 +22,8 @@
                             <div class="photo-blur-front">
                             </div>
                         </div>
-                        <form action="" id="upload-image" enctype="multipart/form-data">
-                            <input type="file" id="user-image" name="photo" style="display: none">
-                            <button type="submit" style="display: none"></button>
+                        <p class="label label-danger label-block" id="error-update-image"></p>
+                        <input type="file" id="user-image" name="photo" style="display: none">
                         </form>
                         <h3 class="user_name profile-username text-center"></h3>
                         <p class="text-muted text-center user_alias_email"></p>

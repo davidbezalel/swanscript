@@ -18,12 +18,15 @@ jQuery(document).ready(function () {
                 /* data in header */
                 $('.user_name').text(data.name);
                 $('.user_alias').text(data.alias);
-                $('.user_email').text( data.email);
+                $('.user_email').text(data.email);
                 $('.user_alias_email').text(data.alias + ', ' + data.email);
                 if (null == data.photo) {
                     $('.user_photo').attr('src', '/images/user/user_avatar.png');
+                    $('.profile-user-img').attr('src', '/images/user/user_avatar.png');
                 } else {
-                    $('.user_photo').attr('src', '/images/user/' + data.photo);
+                    var time = new Date();
+                    $('.profile-user-img').attr('src', '/images/user/' + data.photo + '?' + time.getTime());
+                    $('.user_photo').attr('src', '/images/user/' + data.photo + '?' + time.getTime());
                 }
                 $('.role').text(data.role);
 
@@ -43,9 +46,9 @@ jQuery(document).ready(function () {
                             $('.skills').append(_span);
                         }
                     } else if (skills.length == 0) {
-                            var _span = '<span class="label label-danger">' + skills[0] + "</span>";
-                            $('.skills').append(_span);                        
-                    }                   
+                        var _span = '<span class="label label-danger">' + skills[0] + "</span>";
+                        $('.skills').append(_span);
+                    }
                 }
                 /* data in profile input form */
 
@@ -58,10 +61,6 @@ jQuery(document).ready(function () {
                 $('#inputAlias').val(data.alias);
             }
         });
-    }
-
-    function save_image() {
-        var data = new FormData($('#upload-image')[0]);
     }
 
     load_user_data(id);
@@ -84,19 +83,33 @@ jQuery(document).ready(function () {
         });
     });
 
-    $('#upload-image-container').click(function() {
+    $('#upload-image-container').click(function () {
         $('#user-image').click();
     });
 
-    $('#user-image').change(function() {
+    $('#user-image').change(function () {
         if ($('#user-image')[0].files && $('#user-image')[0].files[0]) {
             var _reader = new FileReader();
-            _reader.onload = function (e) {
-                file = e.target.files;
-                $('#img-result').attr('src', e.target.result);
-            };
             _reader.readAsDataURL($('#user-image')[0].files[0]);
-            save_image();
+
+            /* ajax */
+            var data = new FormData();
+            data.append('photo', $('#user-image')[0].files[0]);
+            $.ajax({
+                url: '/api/author/profile/update-image',
+                type: 'POST',
+                data: data,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data.status) {
+                        load_user_data(id);
+                    } else {
+                        $('#error-update-image').text(data.message).show();
+                    }
+                }
+            });
         }
     });
 

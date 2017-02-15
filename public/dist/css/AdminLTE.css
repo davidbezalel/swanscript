@@ -294,7 +294,7 @@ a:focus {
   font-size: 20px;
   line-height: 50px;
   text-align: center;
-  width: 230px;
+  width: 233px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0 15px;
   font-weight: 300;
@@ -482,8 +482,9 @@ a:focus {
 }
 .user-panel > .image > img {
   width: 100%;
-  max-width: 45px;
-  height: 45px;
+  max-width: 35px;
+  height: 35px;
+  margin-top: 8px;
 }
 .user-panel > .info {
   padding: 5px 5px 5px 15px;
@@ -3322,10 +3323,10 @@ table.text-center th {
  */
 .profile-user-img {
   margin: 0 auto;
-  width: 90px;
   padding: 3px;
-  border: 3px solid #d2d6de;
+  width: 90px;
   height: 90px;
+  border: 2px solid #d2d6de;
 }
 .profile-username {
   font-size: 21px;

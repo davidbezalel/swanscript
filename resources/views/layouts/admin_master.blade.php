@@ -71,10 +71,10 @@
 							<!-- Menu Footer-->
 							<li class="user-footer">
 								<div class="pull-left">
-									<a href="/author/profile" class="btn btn-default btn-flat">Profile</a>
+									<a href="/author/profile" class="btn btn-info btn-flat">Profile</a>
 								</div>
 								<div class="pull-right">
-									<a href="/author/logout" id="logout" class="btn btn-default btn-flat">Logout</a>
+									<a href="/author/logout" id="logout" class="btn btn-warning btn-flat">Logout</a>
 								</div>
 							</li>
 						</ul>
@@ -105,10 +105,14 @@
 			<!-- /.search form -->
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
-				<li class="header">N A V I G A T I O N</li>
 				<li class="<?php echo ($data['controller'] == 'dashboard') ? 'active': '' ?> treeview">
 					<a href="/author">
 						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+					</a>
+				</li>
+				<li class="<?php echo ($data['controller'] == 'users') ? 'active': '' ?> treeview">
+					<a href="/users">
+						<i class="fa fa-users"></i> <span>Users</span>
 					</a>
 				</li>
 			</ul>
@@ -134,13 +138,13 @@
 
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src="/plugins/morris/morris.min.js"></script>
-<script src="/plugins/sparkline/jquery.sparkline.min.js"></script>
-<script src="/plugins/knob/jquery.knob.js"></script>
-<script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="/plugins/fastclick/fastclick.js"></script>
+{{--<script src="/plugins/morris/morris.min.js"></script>--}}
+{{--<script src="/plugins/sparkline/jquery.sparkline.min.js"></script>--}}
+{{--<script src="/plugins/knob/jquery.knob.js"></script>--}}
+{{--<script src="/plugins/datepicker/bootstrap-datepicker.js"></script>--}}
+{{--<script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>--}}
+{{--<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>--}}
+{{--<script src="/plugins/fastclick/fastclick.js"></script>--}}
 <script src="/dist/js/app.min.js"></script>
 <script src="/js/scripter.js"></script>
 
@@ -151,8 +155,8 @@ if (isset($data['scripts'])) {
 	}
 }
 ?>
-<script src="/dist/js/pages/dashboard.js"></script>
-<script src="/dist/js/demo.js"></script>
+{{--<script src="/dist/js/pages/dashboard.js"></script>--}}
+{{--<script src="/dist/js/demo.js"></script>--}}
 
 </body>
 </html>
