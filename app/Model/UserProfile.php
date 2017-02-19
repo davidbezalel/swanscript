@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Helper\Model;
 
 class UserProfile extends Model
 {

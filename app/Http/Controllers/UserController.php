@@ -95,6 +95,7 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         if ($this->isPost()) {
+
             if ($request['flag'] == 1) {
                 $user_profile_model = new UserProfile();
                 $where = array(
@@ -109,7 +110,7 @@ class UserController extends Controller
                 }
             } else {
                 $rules = array(
-                    'email' => 'required|email|unique:users'
+                    'email' => 'required|email'
                 );
                 if (null !== $this->validate_v2($request, $rules)) {
                     $this->response_json->message = $this->validate_v2($request, $rules);
@@ -117,8 +118,21 @@ class UserController extends Controller
                 }
                 $user_model = new User();
                 $where = array(
-                    'id' => $request['id']
+                    ['id', '<>', Auth::user()->id]
                 );
+                $select = array('email');
+                $users_email = $user_model->find_v2($where, true, $select);
+
+                foreach ($users_email as $item) {
+                    if ($request['email'] == $item['email']) {
+                        $this->response_json->message = 'Email already taken';
+                        return $this->__json();
+                    }
+                }
+                $where = array(
+                    ['id', '=', Auth::user()->id]
+                );
+
                 $record = array();
                 $record['name'] = $request['name'];
                 $record['email'] = $request['email'];
@@ -133,7 +147,7 @@ class UserController extends Controller
             $styles = array();
 
             $scripts = array();
-            $scripts[] = 'author.js';
+            $scripts[] = 'user_profile.js';
 
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
@@ -204,7 +218,7 @@ class UserController extends Controller
                 'photo' => 'mimes:jpg,JPG,jpeg,JPEG,png,PNG|max:2024'
             );
             $message = array(
-                'mimes'=> 'File must be a file of type jpg, jpeg or png'
+                'mimes' => 'File must be a file of type jpg, jpeg or png'
             );
             if ($request->hasFile('photo')) {
                 /* validate the request */
@@ -226,20 +240,17 @@ class UserController extends Controller
                     if (file_exists($path . $photo_name_old)) {
                         unlink($path . $photo_name_old);
                     }
-                    $photo_name_old = explode('.', $photo_name_old);
-                    $photo_name = $photo_name_old[0] . '.' . $request->photo->getClientOriginalExtension();
-                } else {
-                    $photo_name = uniqid('') . '.' . $request->photo->getClientOriginalExtension();
-                    $where = array(
-                        ['id', '=', Auth::user()->id]
-                    );
-
-                    $update = array(
-                        'photo' => $photo_name
-                    );
-                    $user = new User();
-                    $user->update_v2($where, $update);
                 }
+                $photo_name = uniqid('') . '.' . $request->photo->getClientOriginalExtension();
+                $where = array(
+                    ['id', '=', Auth::user()->id]
+                );
+
+                $update = array(
+                    'photo' => $photo_name
+                );
+                $user = new User();
+                $user->update_v2($where, $update);
 
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);

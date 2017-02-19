@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header clear-float">
         <ol class="breadcrumb">
-            <li><a href="/users"><i class="fa fa-dashboard"></i> Users</a></li>
+            <li><a href="/users"><i class="fa fa-users"></i> Users</a></li>
             <li class="active">User profile</li>
         </ol>
     </section>

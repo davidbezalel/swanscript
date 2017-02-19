@@ -5,7 +5,6 @@
 
 jQuery(document).ready(function () {
     var id = $('#id').val();
-
     function load_user_data(id) {
         $.ajax({
             url: '/api/author/profile/' + id,
@@ -25,8 +24,8 @@ jQuery(document).ready(function () {
                     $('.profile-user-img').attr('src', '/images/user/user_avatar.png');
                 } else {
                     var time = new Date();
-                    $('.profile-user-img').attr('src', '/images/user/' + data.photo + '?' + time.getTime());
-                    $('.user_photo').attr('src', '/images/user/' + data.photo + '?' + time.getTime());
+                    $('.profile-user-img').attr('src', '/images/user/' + data.photo);
+                    $('.user_photo').attr('src', '/images/user/' + data.photo);
                 }
                 $('.role').text(data.role);
 
@@ -66,6 +65,7 @@ jQuery(document).ready(function () {
     load_user_data(id);
 
     $('#update_profile').submit(function (event) {
+        $('#update_profile_success').hide();
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
@@ -88,6 +88,7 @@ jQuery(document).ready(function () {
     });
 
     $('#user-image').change(function () {
+        $('#error-update-image').hide();
         if ($('#user-image')[0].files && $('#user-image')[0].files[0]) {
             var _reader = new FileReader();
             _reader.readAsDataURL($('#user-image')[0].files[0]);
@@ -114,6 +115,8 @@ jQuery(document).ready(function () {
     });
 
     $('#update_setting').submit(function (event) {
+        $('#update_setting_success').hide();
+        $('#update_setting_error').hide();
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
@@ -123,6 +126,7 @@ jQuery(document).ready(function () {
             processData: false,
             cache: false,
             success: function (data) {
+                console.log(data);
                 if (data.status) {
                     $('#update_setting_success').text('Update Setting Success.').show();
                     load_user_data(id);

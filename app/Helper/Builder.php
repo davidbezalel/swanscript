@@ -7,18 +7,26 @@
 
 namespace App\Helper;
 
-use Illuminate\Database\Query\Builder as BaseBuilder;
+use Illuminate\Database\Eloquent\Builder as BaseBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+
 
 class Builder extends BaseBuilder
 {
-
     protected $model;
+
+    public function __construct(QueryBuilder $query)
+    {
+        parent::__construct($query);
+    }
 
     /**
      * find row[s] in table
      *
+     *
      * @param array $where
      * @param boolean $all
+     * @param array $select
      * @param int $limit
      * @param int $offset
      * @param string $orderBy
@@ -26,19 +34,20 @@ class Builder extends BaseBuilder
      *
      * @return array collection
      */
-    public function find_v2($where, $all = false, $limit = 0, $offset = 0, $orderBy = 'id', $rulesOrder = 'ASC')
+    public function find_v2($where, $all = false, $select = ['*'], $limit = 0, $offset = 0, $orderBy = 'id', $rulesOrder = 'ASC')
     {
-
-        $query = $this->select(['*'])
-            ->where($where)
-            ->limit($limit)
-            ->offset($offset)
+        $query = $this->where($where)
             ->orderBy($orderBy, $rulesOrder);
 
-        if ($all) {
-            return $query->get();
+        if ($limit != 0) {
+            $query->limit($limit)
+                ->offset($offset);
+
         }
-        return $query->first();
+        if ($all) {
+            return $query->get($select);
+        }
+        return $query->first($select);
     }
 
     /**
