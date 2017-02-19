@@ -47,7 +47,7 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 |
 */
 
-define("ASSETS_PATH", __DIR__ . '/images/');
+define("ASSETS_PATH", __DIR__ . '/assets/');
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

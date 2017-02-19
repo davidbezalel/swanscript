@@ -182,8 +182,8 @@
 
                                     <div class="col-sm-10">
                                         <input type="text"
-                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?> name="education"
-                                               class="form-control {!! $data['is_permitted'] !!}" id="inputEducation"
+                                               <?php echo ($data['is_permitted'] ? '' : 'readonly') ?> name="education"
+                                               class="form-control" id="inputEducation"
                                                placeholder="Education">
                                     </div>
                                 </div>
@@ -192,7 +192,7 @@
 
                                     <div class="col-sm-10">
                                         <input type="text"
-                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?> name="location"
+                                               <?php echo ($data['is_permitted'] ? '' : 'readonly') ?> name="location"
                                                class="form-control" id="inputLocation" placeholder="Location">
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@
 
                                     <div class="col-sm-10">
                                         <input type="text"
-                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="skills"
+                                               <?php echo ($data['is_permitted'] ? '' : 'readonly') ?>  name="skills"
                                                class="form-control" id="inputSkills" placeholder="Skills">
                                     </div>
                                 </div>
@@ -210,13 +210,13 @@
 
                                     <div class="col-sm-10">
                                         <textarea class="form-control"
-                                                  <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="notes"
+                                                  <?php echo ($data['is_permitted'] ? '' : 'readonly') ?>  name="notes"
                                                   id="inputNotes" placeholder="Notes"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <?php echo $data['is_permitted'] == 'true' ? '<button type="submit" class="btn btn-danger">Update</button>' : '' ?>
+                                        <?php echo $data['is_permitted']? '<button type="submit" class="btn btn-danger">Update</button>' : '' ?>
                                     </div>
                                 </div>
                             </form>
@@ -234,7 +234,7 @@
 
                                     <div class="col-sm-10">
                                         <input type="text"
-                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="name"
+                                               <?php echo ($data['is_permitted'] ? '' : 'readonly') ?>  name="name"
                                                class="form-control" id="inputName" placeholder="Name">
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@
 
                                     <div class="col-sm-10">
                                         <input type="text"
-                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="email"
+                                               <?php echo ($data['is_permitted'] ? '' : 'readonly') ?>  name="email"
                                                class="form-control" id="inputEmail" placeholder="Email">
                                     </div>
                                 </div>
@@ -252,14 +252,14 @@
 
                                     <div class="col-sm-10">
                                         <input type="text"
-                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="alias"
+                                               <?php echo ($data['is_permitted'] ? '' : 'readonly') ?>  name="alias"
                                                class="form-control" id="inputAlias" placeholder="Alias">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <?php echo $data['is_permitted'] == 'true' ? '<button type="submit" class="btn btn-danger">Update</button>' : '' ?>
+                                        <?php echo $data['is_permitted'] ? '<button type="submit" class="btn btn-danger">Update</button>' : '' ?>
                                     </div>
                                 </div>
                             </form>

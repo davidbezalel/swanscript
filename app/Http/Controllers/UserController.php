@@ -174,7 +174,7 @@ class UserController extends Controller
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['id'] = $id;
-            $this->data['is_permitted'] = Auth::user()->id == $id || Auth::user()->role == "CEO"? 'true' : 'false';
+            $this->data['is_permitted'] = Auth::user()->id == $id || Auth::user()->role == "CEO";
             $this->data['controller'] = 'users';
             return view('user.profile')->with('data', $this->data);
         }

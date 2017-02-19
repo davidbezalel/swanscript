@@ -48,9 +48,9 @@ jQuery(document).ready(function () {
             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                 if (iCol == 4) {
                     if (null != oData.photo) {
-                        $(nTd.children[0]).attr('src', '/images/user/' + oData.photo);
+                        $(nTd.children[0]).attr('src', '/assets/user/' + oData.photo);
                     } else {
-                        $(nTd.children[1]).attr('src', '/images/user/user_avatar.png');
+                        $(nTd.children[1]).attr('src', '/assets/user/user_avatar.png');
                     }
                 } else if (iCol == 5) {
                     if (id != oData.id) {
