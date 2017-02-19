@@ -41,6 +41,7 @@ class UserController extends Controller
                 ['alias', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
             );
             $users = $user_model->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
+
             $number = $request['start'] + 1;
             foreach ($users as &$item) {
                 $item['no'] = $number;
@@ -49,8 +50,8 @@ class UserController extends Controller
             $response_json = array();
             $response_json['draw'] = $request['draw'];
             $response_json['data'] = $users;
-            $response_json['recordsTotal'] = $user_model->getTableCount();
-            $response_json['recordsFiltered'] = $user_model->getTableCount();
+            $response_json['recordsTotal'] = $user_model->getTableCount($where);
+            $response_json['recordsFiltered'] = $user_model->getTableCount($where);
             return $this->__json($response_json);
         }
 

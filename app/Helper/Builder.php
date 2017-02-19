@@ -20,8 +20,8 @@ class Builder extends BaseBuilder
         parent::__construct($query);
     }
 
-    public function getTableCount() {
-        return $this->get(['id'])->count();
+    public function getTableCount($where = []) {
+        return $this->where($where)->get(['id'])->count();
     }
 
     /**
