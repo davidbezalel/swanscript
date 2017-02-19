@@ -22,6 +22,7 @@ Route::get('author', 'ScripterController@index');
 Route::get('author/register', 'UserController@register');
 Route::get('author/login', 'UserController@login');
 Route::get('author/profile', 'UserController@profile');
+Route::get('author/profile/{id}/{flag}', 'UserController@profileOtherUser');
 
 Route::get('users', 'UserController@index');
 
@@ -37,4 +38,6 @@ Route::post('author/login', 'UserController@login');
 Route::get('api/author/profile/{id}', 'UserController@api_profile');
 Route::post('api/author/profile/update', 'UserController@profile');
 Route::post('api/author/profile/update-image', 'UserController@update_image');
+
+Route::post('users', 'UserController@index');
 

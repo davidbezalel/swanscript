@@ -20,11 +20,15 @@ class Builder extends BaseBuilder
         parent::__construct($query);
     }
 
+    public function getTableCount() {
+        return $this->get(['id'])->count();
+    }
+
     /**
      * find row[s] in table
      *
      *
-     * @param array $where
+     * @param array $where -> array('field', 'operator', 'value', AND/OR)
      * @param boolean $all
      * @param array $select
      * @param int $limit

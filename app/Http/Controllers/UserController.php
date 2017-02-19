@@ -30,15 +30,39 @@ class UserController extends Controller
         return $this->__json();
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($this->isPost()) {
+            $columns = ['no', 'name', 'alias', 'email', 'avatar', 'action'];
+            $user_model = new User();
+            $where = array(
+                ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
+                ['email', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
+                ['alias', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
+            );
+            $users = $user_model->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
+            $number = $request['start'] + 1;
+            foreach ($users as &$item) {
+                $item['no'] = $number;
+                $number++;
+            }
+            $response_json = array();
+            $response_json['draw'] = $request['draw'];
+            $response_json['data'] = $users;
+            $response_json['recordsTotal'] = $user_model->getTableCount();
+            $response_json['recordsFiltered'] = $user_model->getTableCount();
+            return $this->__json($response_json);
+        }
+
         if (null !== Auth::user()) {
             $styles = array();
 
             $scripts = array();
+            $scripts[] = 'user.js';
 
             $this->data['styles'] = $styles;
             $this->data['id'] = Auth::user()->id;
+            $this->data['role'] = Auth::user()->role;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'users';
 
@@ -90,6 +114,24 @@ class UserController extends Controller
     {
         Auth::logout();
         return Redirect::to('author/login');
+    }
+
+    public function profileOtherUser ($id, $flag)
+    {
+        if (null !== Auth::user()) {
+            $styles = array();
+
+            $scripts = array();
+            $scripts[] = 'user_profile.js';
+
+            $this->data['styles'] = $styles;
+            $this->data['scripts'] = $scripts;
+            $this->data['id'] = $id;
+            $this->data['flag'] = $flag;
+            $this->data['controller'] = 'users';
+            return view('user.profile')->with('data', $this->data);
+        }
+        return Redirect::to('/author/login');
     }
 
     public function profile(Request $request)

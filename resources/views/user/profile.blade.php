@@ -4,7 +4,7 @@
     <section class="content-header clear-float">
         <ol class="breadcrumb">
             <li><a href="/users"><i class="fa fa-users"></i> Users</a></li>
-            <li class="active">User profile</li>
+            <li class="active">Profile</li>
         </ol>
     </section>
 
@@ -25,8 +25,8 @@
                         <p class="label label-danger label-block" id="error-update-image"></p>
                         <input type="file" id="user-image" name="photo" style="display: none">
                         </form>
-                        <h3 class="user_name profile-username text-center"></h3>
-                        <p class="text-muted text-center user_alias_email"></p>
+                        <h3 class="user_name_profile profile-username text-center"></h3>
+                        <p class="text-muted text-center user_alias_email_profile"></p>
                     </div>
                     <!-- /.box-body -->
                 </div>

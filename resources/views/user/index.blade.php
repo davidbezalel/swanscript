@@ -9,14 +9,25 @@
     </section>
 
     <section class="content">
+        <input type="hidden" id="id" value="{!! $data['id'] !!}">
+        <input type="hidden" id="role" value="{!! $data['role'] !!}">
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-info">
-                    <table id="users-table">
-                        <thead>
-                            <th>#</th>
-                        </thead>
-                    </table>
+                    <div class="box-body">
+                        <table id="users-table">
+                            <thead>
+                            <tr>
+                                <th class="no">#</th>
+                                <th>Name</th>
+                                <th>Alias</th>
+                                <th>Email</th>
+                                <th>Avatar</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

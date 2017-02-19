@@ -1,0 +1,77 @@
+table.dataTable {
+    font-size: 11.5px;
+}
+
+table.dataTable>thead>tr>th.left {
+    text-align: left !important;
+}
+
+table.dataTable>thead>tr>th.no {
+    padding: 0 15px !important;
+    width: 15px !important;
+}
+
+table.dataTable>thead>tr {
+    background: #45e2d0 !important;
+    color: #FFF !important;
+}
+
+table.dataTable>thead>tr>th {
+    border: 1px solid !important;
+    text-align: center;
+    padding: 10px 0  !important;
+}
+
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_desc {
+    background: none !important;
+}
+
+table.dataTable>thead>tr>th:after {
+    color: #FFF;
+    opacity: .7 !important;
+}
+
+table.dataTable>tbody>tr:nth-child(even) {
+    background: #dad3d3;
+}
+
+table.dataTable>tbody>tr>td.no {
+    text-align: center;
+}
+
+table.dataTable>tbody>tr>td.right {
+    text-align: right;
+}
+
+table.dataTable>tbody>tr>td a.action {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+table.dataTable>tbody>tr>td a.action .fa {
+    font-size: 20px;
+}
+
+.pagination>.active:hover  {
+    background: #FFF !important;
+    border: 1px solid #FFF !important;
+    cursor: pointer;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:hover,
+.pagination>.active>a:focus{
+    background: #75c162;
+    cursor: pointer;
+    border: 1px solid #75c162;
+}
+
+.image-datatable {
+    width: 70px;
+    height: auto;
+    max-height: 80px;
+    padding: 3px 0;
+    margin: 0 auto;
+}

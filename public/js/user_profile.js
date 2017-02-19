@@ -15,10 +15,10 @@ jQuery(document).ready(function () {
                 var data = data['data'];
 
                 /* data in header */
-                $('.user_name').text(data.name);
+                $('.user_name_profile').text(data.name);
                 $('.user_alias').text(data.alias);
                 $('.user_email').text(data.email);
-                $('.user_alias_email').text(data.alias + ', ' + data.email);
+                $('.user_alias_email_profile').text(data.alias + ', ' + data.email);
                 if (null == data.photo) {
                     $('.user_photo').attr('src', '/images/user/user_avatar.png');
                     $('.profile-user-img').attr('src', '/images/user/user_avatar.png');

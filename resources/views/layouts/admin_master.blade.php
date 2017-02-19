@@ -8,10 +8,13 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/datatable_custom.css">
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/dist/css/AdminLTE.css">
 	<link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
 	<link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">
+	<link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="/plugins/datatables/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="/plugins/morris/morris.css">
 	<link rel="stylesheet" href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 	<link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
@@ -138,6 +141,8 @@
 
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
 {{--<script src="/plugins/morris/morris.min.js"></script>--}}
 {{--<script src="/plugins/sparkline/jquery.sparkline.min.js"></script>--}}
 {{--<script src="/plugins/knob/jquery.knob.js"></script>--}}
