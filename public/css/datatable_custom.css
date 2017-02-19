@@ -1,5 +1,7 @@
 table.dataTable {
     font-size: 11.5px;
+    font-family: 'calibri', 'arial', sans-serif;
+    font-weight: 600;
 }
 
 table.dataTable>thead>tr>th.left {

@@ -18,12 +18,11 @@ Route::get('oops/404', function () {
 
 /* admin panel */
 
-Route::get('author', 'ScripterController@index');
-Route::get('author/register', 'UserController@register');
-Route::get('author/login', 'UserController@login');
-Route::get('author/profile', 'UserController@profile');
-Route::get('author/profile/{id}/{flag}', 'UserController@profileOtherUser');
+Route::get('dashboard', 'ScripterController@index');
+Route::get('user/register', 'UserController@register');
+Route::get('user/login', 'UserController@login');
 
+Route::get('user/profile/{id}', 'UserController@profile');
 Route::get('users', 'UserController@index');
 
 /**
@@ -32,12 +31,13 @@ Route::get('users', 'UserController@index');
  */
 
 /* admin panel */
-Route::get('author/logout', 'UserController@logout');
-Route::post('author/register', 'UserController@register');
-Route::post('author/login', 'UserController@login');
-Route::get('api/author/profile/{id}', 'UserController@api_profile');
-Route::post('api/author/profile/update', 'UserController@profile');
-Route::post('api/author/profile/update-image', 'UserController@update_image');
+Route::get('user/logout', 'UserController@logout');
+Route::post('user/register', 'UserController@register');
+Route::post('user/login', 'UserController@login');
+
+Route::get('api/user/profile/{id}', 'UserController@api_profile');
+Route::post('api/user/profile/update/{id}', 'UserController@profile');
+Route::post('api/user/profile/update-image/{id}', 'UserController@update_image');
 
 Route::post('users', 'UserController@index');
 

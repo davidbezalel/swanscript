@@ -17,13 +17,12 @@ class ScripterController extends Controller
             $scripts = array();
 
             $this->data['styles'] = $styles;
-            $this->data['id'] = Auth::user()->id;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'dashboard';
 
             return view('dashboard.index')->with('data', $this->data);
         }
-        return Redirect::to('author/login');
+        return Redirect::to('/user/login');
 
     }
 }

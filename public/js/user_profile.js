@@ -5,14 +5,32 @@
 
 jQuery(document).ready(function () {
     var id = $('#id').val();
+    var auth_id = $('#auth-id').val();
+
+    function load_auth_user_data(data) {
+        $('.user_name_dashboard').text(data.name);
+        $('.user_alias_dashboard').text(data.alias);
+        if (null == data.photo) {
+            $('.user_photo_dashboard').attr('src', '/images/user/user_avatar.png');
+        } else {
+            $('.user_photo_dashboard').attr('src', '/images/user/' + data.photo);
+        }
+        $('.role_dashboard').text(data.role);
+    }
+
     function load_user_data(id) {
         $.ajax({
-            url: '/api/author/profile/' + id,
+            url: '/api/user/profile/' + id,
             type: 'GET',
             processData: false,
             cache: true,
             success: function (data) {
                 var data = data['data'];
+
+                /* dashboard data */
+                if (auth_id == id) {
+                    load_auth_user_data(data);
+                }
 
                 /* data in header */
                 $('.user_name_profile').text(data.name);
@@ -69,7 +87,7 @@ jQuery(document).ready(function () {
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
-            url: '/api/author/profile/update',
+            url: '/api/user/profile/update/' + id,
             type: 'POST',
             data: data,
             processData: false,
@@ -97,7 +115,7 @@ jQuery(document).ready(function () {
             var data = new FormData();
             data.append('photo', $('#user-image')[0].files[0]);
             $.ajax({
-                url: '/api/author/profile/update-image',
+                url: '/api/user/profile/update-image/' + id,
                 type: 'POST',
                 data: data,
                 contentType: false,
@@ -120,7 +138,7 @@ jQuery(document).ready(function () {
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
-            url: '/api/author/profile/update',
+            url: '/api/user/profile/update/' + id,
             type: 'POST',
             data: data,
             processData: false,

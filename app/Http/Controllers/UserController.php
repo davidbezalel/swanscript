@@ -61,14 +61,12 @@ class UserController extends Controller
             $scripts[] = 'user.js';
 
             $this->data['styles'] = $styles;
-            $this->data['id'] = Auth::user()->id;
-            $this->data['role'] = Auth::user()->role;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'users';
 
             return view('user.index')->with('data', $this->data);
         }
-        return Redirect::to('author');
+        return Redirect::to('/dashboard');
     }
 
     public function login(Request $request)
@@ -107,34 +105,16 @@ class UserController extends Controller
 
             return view('user.login')->with('data', $this->data);
         }
-        return Redirect::to('author');
+        return Redirect::to('/dashboard');
     }
 
     public function logout()
     {
         Auth::logout();
-        return Redirect::to('author/login');
+        return Redirect::to('/user/login');
     }
 
-    public function profileOtherUser ($id, $flag)
-    {
-        if (null !== Auth::user()) {
-            $styles = array();
-
-            $scripts = array();
-            $scripts[] = 'user_profile.js';
-
-            $this->data['styles'] = $styles;
-            $this->data['scripts'] = $scripts;
-            $this->data['id'] = $id;
-            $this->data['flag'] = $flag;
-            $this->data['controller'] = 'users';
-            return view('user.profile')->with('data', $this->data);
-        }
-        return Redirect::to('/author/login');
-    }
-
-    public function profile(Request $request)
+    public function profile($id, Request $request)
     {
         if ($this->isPost()) {
 
@@ -160,7 +140,7 @@ class UserController extends Controller
                 }
                 $user_model = new User();
                 $where = array(
-                    ['id', '<>', Auth::user()->id]
+                    ['id', '<>', $id]
                 );
                 $select = array('email');
                 $users_email = $user_model->find_v2($where, true, $select);
@@ -172,7 +152,7 @@ class UserController extends Controller
                     }
                 }
                 $where = array(
-                    ['id', '=', Auth::user()->id]
+                    ['id', '=', $id]
                 );
 
                 $record = array();
@@ -193,11 +173,12 @@ class UserController extends Controller
 
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
-            $this->data['id'] = Auth::user()->id;
+            $this->data['id'] = $id;
+            $this->data['is_permitted'] = Auth::user()->id == $id || Auth::user()->role == "CEO"? 'true' : 'false';
             $this->data['controller'] = 'users';
             return view('user.profile')->with('data', $this->data);
         }
-        return Redirect::to('/author/login');
+        return Redirect::to('/user/login');
     }
 
     public function register(Request $request)
@@ -253,7 +234,7 @@ class UserController extends Controller
         return Redirect::to('/oops/permission');
     }
 
-    public function update_image(Request $request)
+    public function update_image($id, Request $request)
     {
         if ($this->isPost()) {
             $rules = array(
@@ -277,21 +258,23 @@ class UserController extends Controller
                 $path = ASSETS_PATH . User::ASSETS;
 
                 /* cek the photo in db */
-                if (isset(Auth::user()->photo)) {
-                    $photo_name_old = Auth::user()->photo;
+                $user_model = new User();
+                $user = $user_model->find($id);
+
+                if (isset($user->photo)) {
+                    $photo_name_old = $user->photo;
                     if (file_exists($path . $photo_name_old)) {
                         unlink($path . $photo_name_old);
                     }
                 }
                 $photo_name = uniqid('') . '.' . $request->photo->getClientOriginalExtension();
                 $where = array(
-                    ['id', '=', Auth::user()->id]
+                    ['id', '=', $id]
                 );
 
                 $update = array(
                     'photo' => $photo_name
                 );
-                $user = new User();
                 $user->update_v2($where, $update);
 
                 if (!file_exists($path)) {

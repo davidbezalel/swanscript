@@ -17,15 +17,22 @@
                 <div class="box box-info">
                     <div class="box-body box-profile">
                         <input type="hidden" id="id" value="{!! $data['id'] !!}">
+                        <input type="hidden" id="auth-id" value="{!! Auth::user()->id !!}">
+                        <?php if ($data['is_permitted'] == 'true') {?>
                         <div class="photo-blur-container" id="upload-image-container">
-                            <img id="img-result" class="profile-user-img img-responsive img-circle" src="/images/user/user_avatar.png">
+                            <?php } ?>
+                            <img id="img-result" class="profile-user-img img-responsive img-circle"
+                                 src="/images/user/user_avatar.png">
+                            <?php if ($data['is_permitted'] == 'true') {?>
                             <div class="photo-blur-front">
                             </div>
                         </div>
+                        <?php } ?>
                         <p class="label label-danger label-block" id="error-update-image"></p>
                         <input type="file" id="user-image" name="photo" style="display: none">
                         </form>
                         <h3 class="user_name_profile profile-username text-center"></h3>
+
                         <p class="text-muted text-center user_alias_email_profile"></p>
                     </div>
                     <!-- /.box-body -->
@@ -40,16 +47,20 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
                         <p class="education text-muted"></p>
                         <hr>
                         <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
                         <p class="location text-muted"></p>
                         <hr>
                         <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
                         <p class="skills">
                         </p>
                         <hr>
                         <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
                         <p class="notes text-muted"></p>
                     </div>
                     <!-- /.box-body -->
@@ -105,7 +116,8 @@
                                     <div class="timeline-item">
                                         <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
 
-                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your
+                                            friend request
                                         </h3>
                                     </div>
                                 </li>
@@ -117,7 +129,8 @@
                                     <div class="timeline-item">
                                         <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
 
-                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post
+                                        </h3>
 
                                         <div class="timeline-body">
                                             Take me to your leader!
@@ -160,40 +173,50 @@
 
                         <div class="tab-pane" id="profile">
                             <form action="" id="update_profile" class="form-horizontal">
-                                <input type="hidden" id="id" name="id" value="{!! $data['id'] !!}">
+                                <input type="hidden" id="id" name="id" value="{!! Auth::user()->id !!}">
                                 <input type="hidden" id="flag" name="flag" value="1">
+
                                 <div class="alert alert-success" id="update_profile_success"></div>
                                 <div class="form-group">
                                     <label for="inputEducation" class="col-sm-2 control-label">Education</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" name="education" class="form-control" id="inputEducation" placeholder="Education">
+                                        <input type="text"
+                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?> name="education"
+                                               class="form-control {!! $data['is_permitted'] !!}" id="inputEducation"
+                                               placeholder="Education">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputLocation" class="col-sm-2 control-label">Location</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" name="location" class="form-control" id="inputLocation" placeholder="Location">
+                                        <input type="text"
+                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?> name="location"
+                                               class="form-control" id="inputLocation" placeholder="Location">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" name="skills" class="form-control" id="inputSkills" placeholder="Skills">
+                                        <input type="text"
+                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="skills"
+                                               class="form-control" id="inputSkills" placeholder="Skills">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputNotes" class="col-sm-2 control-label">Notes</label>
 
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" name="notes" id="inputNotes" placeholder="Notes"></textarea>
+                                        <textarea class="form-control"
+                                                  <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="notes"
+                                                  id="inputNotes" placeholder="Notes"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-danger">Update</button>
+                                        <?php echo $data['is_permitted'] == 'true' ? '<button type="submit" class="btn btn-danger">Update</button>' : '' ?>
                                     </div>
                                 </div>
                             </form>
@@ -201,35 +224,42 @@
                         <!-- /.tab-pane -->
                         <div class="tab-pane" id="settings">
                             <form action="" id="update_setting" class="form-horizontal">
-                                <input type="hidden" id="id" name="id" value="{!! $data['id'] !!}">
+                                <input type="hidden" id="id" name="id" value="{!! Auth::user()->id !!}">
                                 <input type="hidden" id="flag" name="flag" value="2">
+
                                 <div class="alert alert-success" id="update_setting_success"></div>
                                 <div class="alert alert-danger" id="update_setting_error"></div>
                                 <div class="form-group">
                                     <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
+                                        <input type="text"
+                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="name"
+                                               class="form-control" id="inputName" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email">
+                                        <input type="text"
+                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="email"
+                                               class="form-control" id="inputEmail" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputAlias" class="col-sm-2 control-label">Alias</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" name="alias" class="form-control" id="inputAlias" placeholder="Alias">
+                                        <input type="text"
+                                               <?php echo $data['is_permitted'] != 'true' ? 'readonly' : '' ?>  name="alias"
+                                               class="form-control" id="inputAlias" placeholder="Alias">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-danger">Update</button>
+                                        <?php echo $data['is_permitted'] == 'true' ? '<button type="submit" class="btn btn-danger">Update</button>' : '' ?>
                                     </div>
                                 </div>
                             </form>

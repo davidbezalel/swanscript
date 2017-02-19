@@ -35,9 +35,9 @@
 <div class="wrapper">
 
 	<header class="main-header">
-		<input type="hidden" id="user_id" value="{!! $data['id'] !!}">
+		<input type="hidden" id="user_id" value="{!! Auth::user()->id !!}">
 		<!-- Logo -->
-		<a href="/author" class="logo">
+		<a href="/dashboard" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
 			<span class="logo-mini"><b>SS</b></span>
 			<!-- logo for regular state and mobile devices -->
@@ -57,27 +57,27 @@
 					<!-- User Account: style can be found in dropdown.less -->
 					<li class="dropdown user user-menu">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img src="" class="user-image user_photo" alt="User Image">
-							<span class="hidden-xs user_alias"></span>
+							<img src="" class="user-image user_photo_dashboard" alt="User Image">
+							<span class="hidden-xs user_alias_dashboard"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
 							<li class="user-header">
-								<img src="" class="img-circle user_photo" alt="User Image">
+								<img src="" class="img-circle user_photo_dashboard" alt="User Image">
 
 								<p>
-									<span class="user_name"></span>
-									<small class="role"></small>
+									<span class="user_name_dashboard"></span>
+									<small class="role_dashboard"></small>
 								</p>
 							</li>
 
 							<!-- Menu Footer-->
 							<li class="user-footer">
 								<div class="pull-left">
-									<a href="/author/profile" class="btn btn-info btn-flat">Profile</a>
+									<a href="/user/profile/{{Auth::user()->id}}" class="btn btn-info btn-flat">Profile</a>
 								</div>
 								<div class="pull-right">
-									<a href="/author/logout" id="logout" class="btn btn-warning btn-flat">Logout</a>
+									<a href="/user/logout" id="logout" class="btn btn-warning btn-flat">Logout</a>
 								</div>
 							</li>
 						</ul>
@@ -98,10 +98,10 @@
 			<!-- Sidebar user panel -->
 			<div class="user-panel">
 				<div class="pull-left image">
-					<img src="" class="img-circle user_photo" alt="User Image">
+					<img src="" class="img-circle user_photo_dashboard" alt="User Image">
 				</div>
 				<div class="pull-left info">
-					<p class="user_name"></p>
+					<p class="user_name_dashboard"></p>
 					<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 				</div>
 			</div>
@@ -109,7 +109,7 @@
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
 				<li class="<?php echo ($data['controller'] == 'dashboard') ? 'active': '' ?> treeview">
-					<a href="/author">
+					<a href="/dashboard">
 						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 					</a>
 				</li>

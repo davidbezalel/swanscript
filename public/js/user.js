@@ -36,8 +36,9 @@ jQuery(document).ready(function () {
                 searchable: false,
                 orderable: false,
                 className: 'right',
-                defaultContent: '<a class="update-item action" data-toggle="tooltip" ><i class="fa fa-pencil-square" aria-hidden="true"></i></a>' +
+                defaultContent:
                 '<a class="look-item action" data-toggle="tooltip" ><i class="fa fa-eye" aria-hidden="true"></i></a>' +
+                '<a class="update-item action" data-toggle="tooltip" ><i class="fa fa-pencil-square" aria-hidden="true"></i></a>' +
                 '<a class="delete-item action" data-toggle="tooltip" ><i class="fa fa-trash" aria-hidden="true"></i></a>'
             }
         ],
@@ -49,19 +50,21 @@ jQuery(document).ready(function () {
                     if (null != oData.photo) {
                         $(nTd.children[0]).attr('src', '/images/user/' + oData.photo);
                     } else {
-                        $(nTd.children[0]).attr('src', '/images/user/user_avatar.png');
+                        $(nTd.children[1]).attr('src', '/images/user/user_avatar.png');
                     }
                 } else if (iCol == 5) {
                     if (id != oData.id) {
-                        $(nTd.children[0]).attr('style', 'display: none');
-                        $(nTd.children[1]).attr('href', '/author/profile/' + oData.id + '/0');
+                        $(nTd.children[0]).attr('href', '/user/profile/' + oData.id);
                         if (role == "CEO") {
+                            $(nTd.children[0]).attr('style', 'display: none');
+                            $(nTd.children[1]).attr('href', '/user/profile/' + oData.id);
                         } else {
+                            $(nTd.children[1]).attr('style', 'display: none');
                             $(nTd.children[2]).attr('style', 'display: none');
                         }
                     } else {
-                        $(nTd.children[0]).attr('href', '/author/profile/' + oData.id + '/1');
-                        $(nTd.children[1]).attr('style', 'display: none');
+                        $(nTd.children[0]).attr('style', 'display: none');
+                        $(nTd.children[1]).attr('href', '/user/profile/' + oData.id);
                     }
                 }
             }

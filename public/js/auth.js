@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
-            url: '/author/register',
+            url: '/user/register',
             type: 'POST',
             data: data,
             processData: false,
@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
                     $('#success').hide();
                     $('#error').text(data.message).show();
                 } else {
-                    location.href = '/author/login';
+                    location.href = '/user/login';
                 }
             }
 
@@ -31,7 +31,7 @@ jQuery(document).ready(function () {
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
-            url: '/author/login',
+            url: '/user/login',
             type: 'POST',
             data: data,
             cache: false,
@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
                     $('#success').hide();
                     $('#error').text(data.message).show();
                 } else {
-                    location.href = '/author';
+                    location.href = '/dashboard';
                 }
             }
         });

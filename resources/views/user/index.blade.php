@@ -9,8 +9,8 @@
     </section>
 
     <section class="content">
-        <input type="hidden" id="id" value="{!! $data['id'] !!}">
-        <input type="hidden" id="role" value="{!! $data['role'] !!}">
+        <input type="hidden" id="id" value="{!! Auth::user()->id !!}">
+        <input type="hidden" id="role" value="{!! Auth::user()->role !!}">
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-info">
