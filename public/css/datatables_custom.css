@@ -1,8 +1,0 @@
-table.dataTable>thead>tr {
-    background: #45e2d0 !important;
-    color: #FFF !important;
-}
-
-table.dataTable>thead>tr>th {
-    border: 1px solid !important;
-}

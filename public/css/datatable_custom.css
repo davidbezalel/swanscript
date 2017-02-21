@@ -2,6 +2,7 @@ table.dataTable {
     font-size: 11.5px;
     font-family: 'calibri', 'arial', sans-serif;
     font-weight: 600;
+    width: 100%;
 }
 
 table.dataTable>thead>tr>th.left {
@@ -55,13 +56,6 @@ table.dataTable>tbody>tr>td a.action {
 table.dataTable>tbody>tr>td a.action .fa {
     font-size: 20px;
 }
-
-.pagination>.active:hover  {
-    background: #FFF !important;
-    border: 1px solid #FFF !important;
-    cursor: pointer;
-}
-
 .pagination>.active>a,
 .pagination>.active>a:hover,
 .pagination>.active>a:focus{
@@ -70,10 +64,21 @@ table.dataTable>tbody>tr>td a.action .fa {
     border: 1px solid #75c162;
 }
 
+.pagination>li>a:hover {
+    background: #599fb9;
+    cursor: pointer;
+    color: #FFF;
+    border: 1px solid #599fb9;
+}
+
 .image-datatable {
     width: 70px;
     height: auto;
     max-height: 80px;
     padding: 3px 0;
     margin: 0 auto;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
 }

@@ -32,7 +32,7 @@
     height: 30px;
     top: 35%;
     left: 35%;
-    background: url('/images/default_icons/edit.png') no-repeat;
+    background: url('/assets/default_icons/edit.png') no-repeat;
     background-size: cover;
     position: absolute;
 }

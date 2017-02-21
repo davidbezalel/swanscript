@@ -55,7 +55,7 @@ jQuery(document).ready(function () {
                 var label = ['label-danger', 'label-success', 'label-info', 'label-warning', 'label-primary'];
                 var skills = data.profile.skills;
                 $('.skills').text('');
-                if (null !== skills && skills.trim() !== '') {
+                if (null !== skills && typeof skills != 'undefined') {
                     if (skills.length > 1) {
                         skills = skills.split(',');
                         for (var i = 0; i < skills.length; i++) {
