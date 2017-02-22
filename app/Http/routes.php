@@ -10,10 +10,7 @@
 
 /* error */
 Route::get('oops/permission', function () {
-    return view('error.permission');
-});
-Route::get('oops/404', function () {
-    return view('error.404');
+    return view('errors.permission');
 });
 
 /* admin panel */
