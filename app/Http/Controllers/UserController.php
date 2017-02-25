@@ -64,6 +64,7 @@ class UserController extends Controller
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'users';
+            $this->data['function'] = 'index';
 
             return view('user.index')->with('data', $this->data);
         }
