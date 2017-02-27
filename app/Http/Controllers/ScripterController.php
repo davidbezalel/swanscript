@@ -19,6 +19,7 @@ class ScripterController extends Controller
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'dashboard';
+            $this->data['function'] = '';
 
             return view('dashboard.index')->with('data', $this->data);
         }

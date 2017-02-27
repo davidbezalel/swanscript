@@ -63,3 +63,10 @@
     margin: 3px 0;
 }
 
+.box-body a.general-action {
+    font-size: 30px;
+}
+
+.modal-dialog {
+    background: #FFF;
+}

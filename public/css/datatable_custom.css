@@ -48,7 +48,8 @@ table.dataTable>tbody>tr>td.right {
     text-align: right;
 }
 
-table.dataTable>tbody>tr>td a.action {
+table.dataTable>tbody>tr>td a.action,
+a.general-action{
     display: inline-block;
     margin: 0 5px;
 }
@@ -56,6 +57,12 @@ table.dataTable>tbody>tr>td a.action {
 table.dataTable>tbody>tr>td a.action .fa {
     font-size: 20px;
 }
+
+table.dataTable>tbody>tr>td a.action-danger .fa {
+    color: #d83737;
+}
+
+
 .pagination>.active>a,
 .pagination>.active>a:hover,
 .pagination>.active>a:focus{

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\User;
 use App\Model\UserProfile;
+use App\Model\UserRole;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,21 @@ class UserController extends Controller
             $this->response_json->data = $user_data;
         }
         return $this->__json();
+    }
+
+    public function delete(Request $request) {
+        if ($this->isPost() && null != Auth::user()) {
+            $user_model = new User();
+            $id = $request['id'];
+            $where = array(
+                ['id', '=', $id]
+            );
+            if ($user_model->find_v2($where)->delete()) {
+                $this->response_json->status = true;
+                $this->response_json->message = 'User deleted.';
+            }
+            return $this->__json();
+        }
     }
 
     public function index(Request $request)
@@ -57,6 +73,7 @@ class UserController extends Controller
 
         if (null !== Auth::user()) {
             $styles = array();
+            $styles[] = 'auth.css';
 
             $scripts = array();
             $scripts[] = 'user.js';
@@ -175,6 +192,7 @@ class UserController extends Controller
 
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
+            $this->data['function'] = 'index';
             $this->data['id'] = $id;
             $this->data['is_permitted'] = Auth::user()->id == $id || Auth::user()->role == "CEO";
             $this->data['controller'] = 'users';
@@ -228,6 +246,8 @@ class UserController extends Controller
             $scripts[] = 'auth.js';
 
             $this->data['title'] = 'Register';
+            $this->data['controller'] = 'users';
+            $this->data['function'] = 'index';
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
 
@@ -294,5 +314,45 @@ class UserController extends Controller
             $data = $request->all();
         }
         return $this->__json();
+    }
+
+    public function role_index(Request $request)
+    {
+        if ($this->isPost()) {
+            $columns = ['no', 'name', 'description'];
+            $number = 1;
+            $user_role_model = new UserRole();
+            $where = array(
+                ['name', 'LIKE', '%' . $request['search']['value'] . '%'],
+                ['description', 'LIKE', '%' . $request['search']['value'] . '%']
+            );
+            $user_roles = $user_role_model->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
+            foreach($user_roles as &$item) {
+                $item['no'] = $number;
+                $number++;
+            }
+            $response_json = array();
+            $response_json['draw'] = $request['draw'];
+            $response_json['data'] = $user_roles;
+            $response_json['recordsTotal'] = $user_role_model->getTableCount($where);
+            $response_json['recordsFiltered'] = $user_role_model->getTableCount($where);
+            return $this->__json($response_json);
+
+        }
+
+        if (null !== Auth::user()) {
+            $styles = array();
+
+            $scripts = array();
+            $scripts[] = 'user_role.js';
+
+            $this->data['styles'] = $styles;
+            $this->data['scripts'] = $scripts;
+            $this->data['controller'] = 'users';
+            $this->data['function'] = 'role';
+
+            return view('user.role-index')->with('data', $this->data);
+        }
+        return Redirect::to('/dashboard');
     }
 }

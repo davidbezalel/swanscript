@@ -121,7 +121,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li  class="<?php echo($data['function'] == 'index' ? 'active' : '') ?>"><a href="/users"><i class="fa fa-circle-o"></i>List</a></li>
-                        <li><a href="/users"><i class="fa fa-circle-o"></i>Role</a></li>
+                        <li class="<?php echo($data['function'] == 'role' ? 'active' : '') ?>"><a href="/user/roles"><i class="fa fa-circle-o"></i>Role</a></li>
                     </ul>
                 </li>
             </ul>

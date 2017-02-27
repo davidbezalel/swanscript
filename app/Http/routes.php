@@ -16,11 +16,12 @@ Route::get('oops/permission', function () {
 /* admin panel */
 
 Route::get('dashboard', 'ScripterController@index');
+Route::get('users', 'UserController@index');
 Route::get('user/register', 'UserController@register');
 Route::get('user/login', 'UserController@login');
+Route::get('user/roles', 'UserController@role_index');
 
 Route::get('user/profile/{id}', 'UserController@profile');
-Route::get('users', 'UserController@index');
 
 /**
  * API
@@ -28,13 +29,15 @@ Route::get('users', 'UserController@index');
  */
 
 /* admin panel */
+Route::post('users', 'UserController@index');
 Route::get('user/logout', 'UserController@logout');
 Route::post('user/register', 'UserController@register');
 Route::post('user/login', 'UserController@login');
+Route::post('user/delete', 'UserController@delete');
+Route::post('user/roles', 'UserController@role_index');
 
 Route::get('api/user/profile/{id}', 'UserController@api_profile');
 Route::post('api/user/profile/update/{id}', 'UserController@profile');
 Route::post('api/user/profile/update-image/{id}', 'UserController@update_image');
 
-Route::post('users', 'UserController@index');
 

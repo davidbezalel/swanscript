@@ -36,10 +36,9 @@ jQuery(document).ready(function () {
                 searchable: false,
                 orderable: false,
                 className: 'right',
-                defaultContent:
-                '<a class="look-item action" data-toggle="tooltip" ><i class="fa fa-eye" aria-hidden="true"></i></a>' +
-                '<a class="update-item action" data-toggle="tooltip" ><i class="fa fa-pencil-square" aria-hidden="true"></i></a>' +
-                '<a class="delete-item action" data-toggle="tooltip" ><i class="fa fa-trash" aria-hidden="true"></i></a>'
+                defaultContent: '<a class="look-item action"" ><i class="fa fa-eye" aria-hidden="true"></i></a>' +
+                '<a class="update-item action action"><i class="fa fa-pencil" aria-hidden="true"></i></a>' +
+                '<a class="delete-item action action-danger" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>'
             }
         ],
         order: [1, 'ASC'],
@@ -53,6 +52,7 @@ jQuery(document).ready(function () {
                         $(nTd.children[1]).attr('src', '/assets/user/user_avatar.png');
                     }
                 } else if (iCol == 5) {
+                    $(nTd.children[2]).attr('data-id', oData.id);
                     if (id != oData.id) {
                         $(nTd.children[0]).attr('href', '/user/profile/' + oData.id);
                         if (role == "CEO") {
@@ -70,5 +70,48 @@ jQuery(document).ready(function () {
             }
         }]
 
+    });
+
+    $('#register-button').click(function (e) {
+        e.preventDefault();
+        $('#register-modal').modal();
+    });
+
+    $('#register').submit(function (event) {
+        event.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            url: '/user/register',
+            type: 'POST',
+            data: data,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                if (!data.status) {
+                    $('#error').text(data.message).show();
+                } else {
+                    $('#register-modal').modal('hide');
+                    table.draw();
+                }
+            }
+
+        });
+    });
+
+    $(document).on('click', '.delete-item', function (e) {
+        e.preventDefault();
+        var _id = $(this).attr('data-id');
+        $.ajax({
+            url: '/user/delete',
+            type: 'POST',
+            data: {'id': _id},
+            dataType: 'JSON',
+            success: function (data) {
+                console.log(data);
+                if (data.status) {
+                    table.draw();
+                }
+            }
+        });
     });
 });
