@@ -13,9 +13,7 @@ class ScripterController extends Controller
     {
         if (null !== Auth::user()) {
             $styles = array();
-
             $scripts = array();
-
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'dashboard';

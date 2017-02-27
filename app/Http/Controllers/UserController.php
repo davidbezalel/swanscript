@@ -17,8 +17,10 @@ class UserController extends Controller
     {
         $user_model = new User();
         $user_profile_model = new UserProfile();
+        $user_role_model = new UserRole();
         $user_data = $user_model->find($id);
         $user_profile = $user_profile_model->find($id);
+        $user_data['role_name'] = $user_role_model->find($user_data['role']);
         if (null !== $user_profile) {
             $user_data->profile = $user_profile;
         } else {
@@ -31,7 +33,8 @@ class UserController extends Controller
         return $this->__json();
     }
 
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
         if ($this->isPost() && null != Auth::user()) {
             $user_model = new User();
             $id = $request['id'];
@@ -48,6 +51,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        $user_role_model = new UserRole();
         if ($this->isPost()) {
             $columns = ['no', 'name', 'alias', 'email', 'avatar', 'action'];
             $user_model = new User();
@@ -80,6 +84,7 @@ class UserController extends Controller
 
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
+            $this->data['role'] = $user_role_model->find(Auth::user()->role)['profile'] == '1' ? true : false;
             $this->data['controller'] = 'users';
             $this->data['function'] = 'index';
 
@@ -135,8 +140,8 @@ class UserController extends Controller
 
     public function profile($id, Request $request)
     {
+        $user_role_model = new UserRole();
         if ($this->isPost()) {
-
             if ($request['flag'] == 1) {
                 $user_profile_model = new UserProfile();
                 $where = array(
@@ -194,7 +199,7 @@ class UserController extends Controller
             $this->data['scripts'] = $scripts;
             $this->data['function'] = 'index';
             $this->data['id'] = $id;
-            $this->data['is_permitted'] = Auth::user()->id == $id || Auth::user()->role == "CEO";
+            $this->data['is_permitted'] = Auth::user()->id == $id || $user_role_model->find(Auth::user()->role)['profile'];
             $this->data['controller'] = 'users';
             return view('user.profile')->with('data', $this->data);
         }
@@ -323,11 +328,11 @@ class UserController extends Controller
             $number = 1;
             $user_role_model = new UserRole();
             $where = array(
-                ['name', 'LIKE', '%' . $request['search']['value'] . '%'],
-                ['description', 'LIKE', '%' . $request['search']['value'] . '%']
+                ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
+                ['description', 'LIKE', '%' . $request['search']['value'] . '%', 'OR']
             );
             $user_roles = $user_role_model->find_v2($where, true, ['*'], intval($request['length']), intval($request['start']), $columns[intval($request['order'][0]['column'])], $request['order'][0]['dir']);
-            foreach($user_roles as &$item) {
+            foreach ($user_roles as &$item) {
                 $item['no'] = $number;
                 $number++;
             }
@@ -354,5 +359,39 @@ class UserController extends Controller
             return view('user.role-index')->with('data', $this->data);
         }
         return Redirect::to('/dashboard');
+    }
+
+    public function role_add(Request $request)
+    {
+        if ($this->isPost()) {
+            $user_role_model = new UserRole();
+            $rules = array(
+                'name'=> 'required'
+            );
+
+            if (null !== $this->validate_v2($request, $rules)) {
+                $this->response_json->message = $this->validate_v2($request, $rules);
+                return $this->__json();
+            }
+            $data = array();
+            foreach ($user_role_model->getFillable() as $item) {
+                if (isset($request[$item]))
+                    $data[$item] = $request[$item];
+            }
+            UserRole::create($data);
+            $this->response_json->status = true;
+            return $this->__json();
+        }
+    }
+
+    public function role_delete(Request $request) {
+        if ($this->isPost()) {
+            $id = $request['id'];
+            $user_role_model = new UserRole();
+            if ($user_role_model->find($id)->delete()) {
+                $this->response_json->status = true;
+            }
+            return $this->__json();
+        }
     }
 }

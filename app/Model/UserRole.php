@@ -8,6 +8,6 @@ class UserRole extends Model
 {
     protected $table = 'role';
     protected $fillable = array(
-        'id', 'name', 'description'
+        'name', 'description'
     );
 }

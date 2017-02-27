@@ -21,7 +21,7 @@ jQuery(document).ready(function () {
                 } else {
                     $('.user_photo_dashboard').attr('src', '/assets/user/' + data.photo);
                 }
-                $('.role_dashboard').text(data.role);
+                $('.role_dashboard').text(data.role_name.name);
             }
         });
     }

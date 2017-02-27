@@ -23,6 +23,7 @@
                                 <th class="no">#</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                         </table>
@@ -32,7 +33,7 @@
         </div>
     </section>
 
-    <div id="add-modal" class="modal" role="dialog">
+    <div id="add-modal" class="modal" data-backdrop="static" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal" arial-lable="Close" type="button">

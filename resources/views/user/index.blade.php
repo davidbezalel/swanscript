@@ -10,7 +10,7 @@
 
     <section class="content">
         <input type="hidden" id="id" value="{!! Auth::user()->id !!}">
-        <input type="hidden" id="role" value="{!! Auth::user()->role !!}">
+        <input type="hidden" id="role" value="{!! $data['role'] !!}">
 
         <div class="row">
             <div class="col-md-12">

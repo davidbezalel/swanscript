@@ -2,7 +2,7 @@ table.dataTable {
     font-size: 11.5px;
     font-family: 'calibri', 'arial', sans-serif;
     font-weight: 600;
-    width: 100%;
+    width: 100% !important;
 }
 
 table.dataTable>thead>tr>th.left {
@@ -34,6 +34,10 @@ table.dataTable thead .sorting_desc {
 table.dataTable>thead>tr>th:after {
     color: #FFF;
     opacity: .7 !important;
+}
+
+table.dataTable>tbody>tr>td {
+    padding: 5px 0 !important;
 }
 
 table.dataTable>tbody>tr:nth-child(even) {

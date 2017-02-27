@@ -52,19 +52,18 @@ jQuery(document).ready(function () {
                         $(nTd.children[1]).attr('src', '/assets/user/user_avatar.png');
                     }
                 } else if (iCol == 5) {
+                    $(nTd.children[0]).attr('href', '/user/profile/' + oData.id);
                     $(nTd.children[2]).attr('data-id', oData.id);
                     if (id != oData.id) {
-                        $(nTd.children[0]).attr('href', '/user/profile/' + oData.id);
-                        if (role == "CEO") {
-                            $(nTd.children[0]).attr('style', 'display: none');
+                        if (role) {
+                            $(nTd.children[0]).hide();
                             $(nTd.children[1]).attr('href', '/user/profile/' + oData.id);
                         } else {
-                            $(nTd.children[1]).attr('style', 'display: none');
-                            $(nTd.children[2]).attr('style', 'display: none');
+                            $(nTd.children[1]).hide();
+                            $(nTd.children[2]).hide();
                         }
                     } else {
-                        $(nTd.children[0]).attr('style', 'display: none');
-                        $(nTd.children[1]).attr('href', '/user/profile/' + oData.id);
+                        $(nTd.children[0]).hide();
                     }
                 }
             }
@@ -106,6 +105,7 @@ jQuery(document).ready(function () {
             type: 'POST',
             data: {'id': _id},
             dataType: 'JSON',
+            cache: false,
             success: function (data) {
                 console.log(data);
                 if (data.status) {
