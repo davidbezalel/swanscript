@@ -40,7 +40,7 @@
         </div>
     </section>
 
-    <div id="add-modal" class="modal" data-backdrop="static" role="dialog">
+    <div id="add-modal" class="modal fade" data-backdrop="static" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal" arial-lable="Close" type="button">
