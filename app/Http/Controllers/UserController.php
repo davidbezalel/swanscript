@@ -65,6 +65,7 @@ class UserController extends Controller
             $number = $request['start'] + 1;
             foreach ($users as &$item) {
                 $item['no'] = $number;
+                $item['is_permitted'] = ($user_role_model->find(Auth::user()->role)['profile'] == '1' || Auth::user()->id == $item['id']) ? true : false;
                 $number++;
             }
             $response_json = array();
@@ -84,7 +85,6 @@ class UserController extends Controller
 
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
-            $this->data['role'] = $user_role_model->find(Auth::user()->role)['profile'] == '1' ? true : false;
             $this->data['controller'] = 'users';
             $this->data['function'] = 'index';
 
@@ -323,10 +323,10 @@ class UserController extends Controller
 
     public function role_index(Request $request)
     {
+        $user_role_model = new UserRole();
         if ($this->isPost()) {
             $columns = ['no', 'name', 'description'];
             $number = 1;
-            $user_role_model = new UserRole();
             $where = array(
                 ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
                 ['description', 'LIKE', '%' . $request['search']['value'] . '%', 'OR']
@@ -354,6 +354,7 @@ class UserController extends Controller
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'users';
+            $this->data['is_permitted'] = $user_role_model->find(Auth::user()->role)['role'] == '1' ? true : false;
             $this->data['function'] = 'role';
 
             return view('user.role-index')->with('data', $this->data);

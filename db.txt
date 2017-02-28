@@ -4,7 +4,7 @@ CREATE TABLE `users` (
 `alias` VARCHAR(255) NOT NULL,
 `email` VARCHAR(255) NOT NULL,
 `password` TEXT NOT NULL,
-`role` VARCHAR(255) NOT NULL DEFAULT 'AUTHOR',
+`role` TINYINT(4) NOT NULL DEFAULT 0,
 `photo` TEXT,
 `remember_token` TEXT,
 `registered_by` INT,
@@ -20,7 +20,7 @@ CREATE TABLE `role` (
 `description` TEXT,
 `created_at` TIMESTAMP,
 `updated_at` TIMESTAMP,
-`profile` BOOLEAN,
+`profile` BOOLEAN DEFAULT FALSE,
 PRIMARY KEY(`id`)
 );
 

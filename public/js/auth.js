@@ -16,7 +16,7 @@ jQuery(document).ready(function () {
             cache: false,
             processData: false,
             success: function (data) {
-                console.log(data);
+                $('#error').hide();
                 if (!data.status) {
                     $('#success').hide();
                     $('#error').text(data.message).show();

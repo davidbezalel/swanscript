@@ -10,8 +10,7 @@
 
     <section class="content">
         <input type="hidden" id="id" value="{!! Auth::user()->id !!}">
-        <input type="hidden" id="role" value="{!! Auth::user()->role !!}">
-
+        <input type="hidden" id="is_permitted" value="<?php echo($data['is_permitted']); ?>">
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-info">
@@ -23,7 +22,11 @@
                                 <th class="no">#</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Action</th>
+                                <?php
+                                    if ($data['is_permitted']) {
+                                        echo ('<th>Action</th>');
+                                    }
+                                ?>
                             </tr>
                             </thead>
                         </table>
@@ -49,7 +52,8 @@
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="text" name="description" id="description" class="form-control" placeholder="Description">
+                        <input type="text" name="description" id="description" class="form-control"
+                               placeholder="Description">
                         <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
                     </div>
                     <div class="row">

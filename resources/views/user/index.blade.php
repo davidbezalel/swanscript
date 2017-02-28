@@ -10,7 +10,7 @@
 
     <section class="content">
         <input type="hidden" id="id" value="{!! Auth::user()->id !!}">
-        <input type="hidden" id="role" value="{!! $data['role'] !!}">
+        {{--<input type="hidden" id="role" value="{!! $data['role'] !!}">--}}
 
         <div class="row">
             <div class="col-md-12">
@@ -35,7 +35,7 @@
         </div>
     </section>
 
-    <div id="register-modal" class="modal" role="dialog">
+    <div id="register-modal" class="modal" data-backdrop="static" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal" arial-lable="Close" type="button">

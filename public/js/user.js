@@ -52,18 +52,15 @@ jQuery(document).ready(function () {
                         $(nTd.children[1]).attr('src', '/assets/user/user_avatar.png');
                     }
                 } else if (iCol == 5) {
+                    console.log(oData);
                     $(nTd.children[0]).attr('href', '/user/profile/' + oData.id);
+                    $(nTd.children[1]).attr('href', '/user/profile/' + oData.id);
                     $(nTd.children[2]).attr('data-id', oData.id);
-                    if (id != oData.id) {
-                        if (role) {
-                            $(nTd.children[0]).hide();
-                            $(nTd.children[1]).attr('href', '/user/profile/' + oData.id);
-                        } else {
-                            $(nTd.children[1]).hide();
-                            $(nTd.children[2]).hide();
-                        }
-                    } else {
+                    if (oData.is_permitted) {
                         $(nTd.children[0]).hide();
+                    } else {
+                        $(nTd.children[1]).hide();
+                        $(nTd.children[2]).hide();
                     }
                 }
             }
