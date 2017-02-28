@@ -212,7 +212,7 @@ class UserController extends Controller
         if ($this->isPost()) {
             $rules = array(
                 'name' => 'required',
-                'alias' => 'required|alpha_dash',
+                'alias' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6',
                 'repassword' => 'required|min:6|same:password',
@@ -232,7 +232,7 @@ class UserController extends Controller
                     if ($field == 'password') {
                         $data['password'] = Hash::make($request['password']);
                     } else if ($field == 'registered_by') {
-                        $data['registered_by'] = isset(Auth::user()->id) ? Auth::user()->id : 0;
+                        $data['registered_by'] = Auth::user()->id;
                     } else {
                         $data[$field] = $request[$field];
                     }

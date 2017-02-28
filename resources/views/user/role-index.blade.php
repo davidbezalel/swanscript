@@ -15,7 +15,11 @@
             <div class="col-md-12">
                 <div class="box box-info">
                     <div class="box-body">
-                        <a id="add-role" class="general-action" href=""><i class="fa fa-pencil-square"></i></a>
+                        <?php
+                            if ($data['is_permitted']) {
+                                echo ('<a id="add-role" class="general-action" href=""><i class="fa fa-pencil-square"></i></a>');
+                            }
+                        ?>
                         <table id="roles-table">
                             <thead>
                             <tr>
