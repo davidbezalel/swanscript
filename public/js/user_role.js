@@ -72,15 +72,17 @@ jQuery(document).ready(function () {
 
 
 
-    $('#add-role').click(function (e) {
+    $('#add').click(function (e) {
         e.preventDefault();
         $('#error').hide();
         $('#add-modal').modal();
     });
 
-    $('#addrole').submit(function (e) {
+    $('#add-form').submit(function (e) {
         e.preventDefault();
+        console.log('submit');
         var data = $(this).serialize();
+        var _form = $(this)[0];
         $.ajax({
             url: '/user/role/add',
             type: 'POST',
@@ -91,8 +93,7 @@ jQuery(document).ready(function () {
                 console.log(data);
                 if (data.status) {
                     $('#add-modal').modal('hide');
-                    $('#name').val('');
-                    $('#description').val('');
+                    _form.reset();
                     table.draw();
                 } else {
                     $('#error').show().text(data.message);
