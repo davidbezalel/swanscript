@@ -25,7 +25,11 @@
                         <table id="table">
                             <thead>
                             <tr>
-                                <th class="no"></th>
+                                <?php
+                                if ($data['is_permitted']) {
+                                    echo ('<th class="no"></th>');
+                                }
+                                ?>
                                 <th class="no">#</th>
                                 <th>Name</th>
                                 <th>Description</th>

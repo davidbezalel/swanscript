@@ -105,7 +105,7 @@ jQuery(document).ready(function () {
                 {data: 'name'},
                 {data: 'description'},
             ],
-            order: [1, 'ASC'],
+            order: [2, 'ASC'],
         });
     }
 
