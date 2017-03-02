@@ -18,18 +18,24 @@
                     <div class="box-body">
                         <?php
                         if ($data['is_permitted']) {
-                            echo('<a id="add" class="general-action" href=""><i class="fa fa-pencil-square"></i></a>');
+                            echo('<a id="add" class="general-action add" href=""><i class="fa fa-pencil"></i></a>
+                                   <a id="multiple-delete" class="general-action multiple-delete" href=""><i class="fa fa-trash-o"></i></a>');
                         }
                         ?>
-                        <table id="roles-table">
+                        <table id="table">
                             <thead>
                             <tr>
+                                <th class="no"></th>
                                 <th class="no">#</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <?php
                                 if ($data['is_permitted']) {
-                                    echo('<th>Action</th>');
+                                    echo('
+                                            <th>Profile</th>
+                                            <th>Role</th>
+                                            <th>Action</th>
+                                    ');
                                 }
                                 ?>
                             </tr>
@@ -48,7 +54,6 @@
                     <button class="close" data-dismiss="modal" arial-lable="Close" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">Add New User Role</h4>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger" id="error"></div>
@@ -64,6 +69,36 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="btn-add-role" class="btn btn-block btn-primary btn-flat">Add</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="update-modal" class="modal fade" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form action="" id="update-form">
+                <input type="hidden" id="id" name="id">
+
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" arial-lable="Close" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="error"></div>
+                    <div class="form-group has-feedback">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="text" name="description" id="description" class="form-control"
+                               placeholder="Description">
+                        <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btn-add-role" class="btn btn-block btn-primary btn-flat">Update</button>
                 </div>
             </form>
 

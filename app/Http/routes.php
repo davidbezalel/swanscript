@@ -35,8 +35,10 @@ Route::post('user/register', 'UserController@register');
 Route::post('user/login', 'UserController@login');
 Route::post('user/delete', 'UserController@delete');
 Route::post('user/roles', 'UserController@role_index');
-Route::post('user/role/add', 'UserController@role_add');
-Route::post('user/role/delete', 'UserController@role_delete');
+Route::post('user/role/add', 'UserController@roleadd');
+Route::post('user/role/delete', 'UserController@roledelete');
+Route::post('user/role/update', 'UserController@roleupdate');
+Route::post('user/role/multipledelete', 'UserController@rolemultipledelete');
 
 Route::get('api/user/profile/{id}', 'UserController@api_profile');
 Route::post('api/user/profile/update/{id}', 'UserController@profile');

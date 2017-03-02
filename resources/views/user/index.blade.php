@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="box box-info">
                     <div class="box-body">
-                        <a id="register-button" class="general-action" href=""><i class="fa fa-pencil-square"></i></a>
+                        <a id="register-button" class="general-action add" href=""><i class="fa fa-pencil"></i></a>
                         <table id="users-table">
                             <thead>
                             <tr>

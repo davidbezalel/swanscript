@@ -64,7 +64,20 @@
 }
 
 .box-body a.general-action {
-    font-size: 30px;
+    font-size: 23px;
+    padding: 0px 7px;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.box-body a.multiple-delete {
+    background: #C62828;
+    display: none;
+}
+
+.box-body a.add {
+    background: #0277BD;
 }
 
 .modal-dialog {

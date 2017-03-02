@@ -6,9 +6,10 @@
 jQuery(document).ready(function () {
     var id = $('#id').val();
     var _is_permitted = $('#is_permitted').val();
+    var array_delete = [];
 
     if (_is_permitted) {
-        var table = $('#roles-table').DataTable({
+        var table = $('#table').DataTable({
             bFilter: true,
             ordering: true,
             serverSide: true,
@@ -19,6 +20,13 @@ jQuery(document).ready(function () {
             },
             columns: [
                 {
+                    data: null,
+                    className: 'no',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '<input class="choose-item" type="checkbox">'
+                },
+                {
                     data: 'no',
                     className: 'no',
                     searchable: false,
@@ -28,26 +36,57 @@ jQuery(document).ready(function () {
                 {data: 'description'},
                 {
                     data: null,
+                    className: 'no',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '<input class="choose-item" type="checkbox">'
+                },
+                {
+                    data: null,
+                    className: 'no',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '<input class="choose-item" type="checkbox">'
+                },
+                {
+                    data: null,
                     searchable: false,
                     orderable: false,
                     className: 'right',
-                    defaultContent: '<a href="" class="update-item action action"><i class="fa fa-pencil" aria-hidden="true"></i></a>' +
-                    '<a class="delete-item action action-danger" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>'
+                    defaultContent: '<a href="" class="update action action"><i class="fa fa-pencil" aria-hidden="true"></i></a>' +
+                    '<a class="delete action action-danger" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>'
                 }
             ],
-            order: [1, 'ASC'],
+            order: [2, 'ASC'],
             aoColumnDefs: [{
-                aTargets: [3],
+                aTargets: [0, 4, 5, 6],
                 fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                    if (iCol == 3) {
-                        $(nTd.children[0]).attr('data-id', oData.id);
+                    if (iCol == 6) {
+                        $(nTd.children[0]).attr('data-data', JSON.stringify(oData));
                         $(nTd.children[1]).attr('data-id', oData.id);
+                    } else if (iCol == 0) {
+                        if (jQuery.inArray(oData.id.toString(), array_delete) !== -1) {
+                            $(nTd.children[0]).attr('checked', 'checked');
+                        }
+                        $(nTd.children[0]).attr('data-id', oData.id);
+                    } else if (iCol == 4) {
+                        if (oData.profile == '1') {
+                            console.log(oData);
+                            console.log(nTd.children[0]);
+                            $(nTd.children[0]).attr('checked', 'checked');
+                        }
+                    } else if (iCol == 5) {
+                        if (oData.role == '1') {
+                            console.log(oData);
+                            console.log(nTd.children[0]);
+                            $(nTd.children[0]).attr('checked', 'checked');
+                        }
                     }
                 }
             }]
         });
     } else {
-        var table = $('#roles-table').DataTable({
+        var table = $('#table').DataTable({
             bFilter: true,
             ordering: true,
             serverSide: true,
@@ -70,7 +109,22 @@ jQuery(document).ready(function () {
         });
     }
 
-
+    $('#table').on('change', '.choose-item', function (event) {
+        var id = $(this).attr('data-id');
+        if (jQuery.inArray(id, array_delete) === -1) {
+            array_delete.push(id);
+        } else {
+            var index = array_delete.indexOf(id);
+            if (index > -1) {
+                array_delete.splice(index, 1);
+            }
+        }
+        if (array_delete.length > 0) {
+            $('#multiple-delete').show();
+        } else {
+            $('#multiple-delete').hide();
+        }
+    });
 
     $('#add').click(function (e) {
         e.preventDefault();
@@ -102,7 +156,7 @@ jQuery(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.delete-item', function (e) {
+    $(document).on('click', '.delete', function (e) {
         e.preventDefault();
         var _id = $(this).attr('data-id');
         $.ajax({
@@ -113,6 +167,50 @@ jQuery(document).ready(function () {
             cache: false,
             success: function (data) {
                 if (data.status) {
+                    table.draw();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.update', function (event) {
+        event.preventDefault();
+        var _data = JSON.parse($(this).attr('data-data'));
+        $('#update-modal #id').val(_data.id);
+        $('#update-modal #name').val(_data.name);
+        $('#update-modal #description').val(_data.description);
+        $('#update-modal').modal();
+    });
+
+    $('#update-form').submit(function (event) {
+        event.preventDefault();
+        var _data = $(this).serialize();
+        $.ajax({
+            url: '/user/role/update',
+            type: 'POST',
+            data: _data,
+            cache: false,
+            success: function (data) {
+                if (data.status) {
+                    $('#update-modal').modal('hide');
+                    table.draw();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#multiple-delete', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/user/role/multipledelete',
+            type: 'POST',
+            data: JSON.stringify({'items': array_delete}),
+            contentType: 'application/json',
+            success: function(data) {
+                console.log(data);
+                if (data.status) {
+                    $('#multiple-delete').hide();
+                    array_delete = [];
                     table.draw();
                 }
             }

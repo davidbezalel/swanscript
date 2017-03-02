@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Model\User;
 use App\Model\UserProfile;
 use App\Model\UserRole;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -325,7 +325,7 @@ class UserController extends Controller
     {
         $user_role_model = new UserRole();
         if ($this->isPost()) {
-            $columns = ['no', 'name', 'description'];
+            $columns = ['check', 'no', 'name', 'description'];
             $number = 1;
             $where = array(
                 ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
@@ -362,12 +362,12 @@ class UserController extends Controller
         return Redirect::to('/dashboard');
     }
 
-    public function role_add(Request $request)
+    public function roleAdd(Request $request)
     {
         if ($this->isPost()) {
             $user_role_model = new UserRole();
             $rules = array(
-                'name'=> 'required'
+                'name' => 'required'
             );
 
             if (null !== $this->validate_v2($request, $rules)) {
@@ -385,13 +385,46 @@ class UserController extends Controller
         }
     }
 
-    public function role_delete(Request $request) {
+    public function roleDelete(Request $request)
+    {
         if ($this->isPost()) {
             $id = $request['id'];
             $user_role_model = new UserRole();
             if ($user_role_model->find($id)->delete()) {
                 $this->response_json->status = true;
             }
+            return $this->__json();
+        }
+    }
+
+    public function roleUpdate(Request $request)
+    {
+        if ($this->isPost()) {
+            $user_role_model = new UserRole();
+            $data = array();
+            $where = array(
+                ['id', '=', $request['id']]
+            );
+            foreach ($user_role_model->getFillable() as $item) {
+                $data[$item] = $request[$item];
+            }
+            if ($user_role_model->update_v2($where, $data)) {
+                $this->response_json->status = true;
+            }
+            return $this->__json();
+
+        }
+    }
+
+    public function roleMultipleDelete(Request $request)
+    {
+        if ($this->isPost()) {
+            $user_role_model = new UserRole();
+            $items = $request['items'];
+            foreach ($items as $item) {
+                $user_role_model->find($item)->delete();
+            }
+            $this->response_json->status = true;
             return $this->__json();
         }
     }
