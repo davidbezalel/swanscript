@@ -14,6 +14,15 @@ CREATE TABLE `users` (
 PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `user_profile` (
+`id` INT NOT NULL,
+`education` TEXT,
+`location` TEXT,
+`skills` TEXT,
+`notes` TEXT,
+PRIMARY KEY (`id`)	
+);
+
 CREATE TABLE `role` (
 `id` INT NOT NULL AUTO_INCREMENT,
 `name` VARCHAR(255),
@@ -23,31 +32,4 @@ CREATE TABLE `role` (
 `profile` BOOLEAN DEFAULT FALSE,
 `role` BOOLEAN DEFAULT FALSE,
 PRIMARY KEY(`id`)
-);
-
-CREATE TABLE `category` (
-`id` INT NOT NULL AUTO_INCREMENT,
-`category` VARCHAR(255) NOT NULL,
-`description` TEXT,
-PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `blog` (
-`id` INT NOT NULL AUTO_INCREMENT,
-`author_id` INT NOT NULL,
-`category_id` INT NOT NULL,
-`title` TEXT NOT NULL,
-`content` TEXT NOT NULL,
-PRIMARY KEY (`id`),
-FOREIGN KEY (`author_id`) REFERENCES `user` (`id`),
-FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-);
-
-CREATE TABLE `user_profile` (
-`id` INT NOT NULL,
-`education` TEXT,
-`location` TEXT,
-`skills` TEXT,
-`notes` TEXT,
-PRIMARY KEY (`id`)	
 );

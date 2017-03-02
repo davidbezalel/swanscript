@@ -1,0 +1,17 @@
+CREATE TABLE `category` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`category` VARCHAR(255) NOT NULL,
+`description` TEXT,
+PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `blog` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`author_id` INT NOT NULL,
+`category_id` INT NOT NULL,
+`title` TEXT NOT NULL,
+`content` TEXT NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`author_id`) REFERENCES `user` (`id`),
+FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
+);
