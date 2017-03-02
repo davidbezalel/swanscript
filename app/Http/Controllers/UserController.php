@@ -324,8 +324,12 @@ class UserController extends Controller
     public function role_index(Request $request)
     {
         $user_role_model = new UserRole();
+        $this->data['is_permitted'] = $user_role_model->find(Auth::user()->role)['role'] == '1' ? true : false;
         if ($this->isPost()) {
-            $columns = ['check', 'no', 'name', 'description'];
+            $columns = ['no', 'name', 'description'];
+            if ($this->data['is_permitted']) {
+                $columns = ['check', 'no', 'name', 'description'];
+            }
             $number = 1;
             $where = array(
                 ['name', 'LIKE', '%' . $request['search']['value'] . '%', 'OR'],
@@ -354,7 +358,6 @@ class UserController extends Controller
             $this->data['styles'] = $styles;
             $this->data['scripts'] = $scripts;
             $this->data['controller'] = 'users';
-            $this->data['is_permitted'] = $user_role_model->find(Auth::user()->role)['role'] == '1' ? true : false;
             $this->data['function'] = 'role';
 
             return view('user.role-index')->with('data', $this->data);

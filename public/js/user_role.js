@@ -39,14 +39,14 @@ jQuery(document).ready(function () {
                     className: 'no',
                     searchable: false,
                     orderable: false,
-                    defaultContent: '<input class="choose-item" type="checkbox">'
+                    defaultContent: '<input type="checkbox">'
                 },
                 {
                     data: null,
                     className: 'no',
                     searchable: false,
                     orderable: false,
-                    defaultContent: '<input class="choose-item" type="checkbox">'
+                    defaultContent: '<input type="checkbox">'
                 },
                 {
                     data: null,
