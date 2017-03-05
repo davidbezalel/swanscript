@@ -5,6 +5,5 @@ Homestead.yaml
 Homestead.json
 .env
 
-/public/assets
-!/public/assets/default_icons
+/public/assets/user
 /.idea

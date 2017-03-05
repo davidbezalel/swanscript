@@ -39,14 +39,14 @@ jQuery(document).ready(function () {
                     className: 'no',
                     searchable: false,
                     orderable: false,
-                    defaultContent: '<input type="checkbox">'
+                    defaultContent: '<input class="role-item" type="checkbox">'
                 },
                 {
                     data: null,
                     className: 'no',
                     searchable: false,
                     orderable: false,
-                    defaultContent: '<input type="checkbox">'
+                    defaultContent: '<input class="role-item" type="checkbox">'
                 },
                 {
                     data: null,
@@ -75,12 +75,16 @@ jQuery(document).ready(function () {
                             console.log(nTd.children[0]);
                             $(nTd.children[0]).attr('checked', 'checked');
                         }
+                        $(nTd.children[0]).attr('data-id', oData.id);
+                        $(nTd.children[0]).attr('data-flag', 'profile');
                     } else if (iCol == 5) {
                         if (oData.role == '1') {
                             console.log(oData);
                             console.log(nTd.children[0]);
                             $(nTd.children[0]).attr('checked', 'checked');
                         }
+                        $(nTd.children[0]).attr('data-id', oData.id);
+                        $(nTd.children[0]).attr('data-flag', 'role');
                     }
                 }
             }]
@@ -199,14 +203,14 @@ jQuery(document).ready(function () {
         });
     });
 
-    $(document).on('click', '#multiple-delete', function(event) {
+    $(document).on('click', '#multiple-delete', function (event) {
         event.preventDefault();
         $.ajax({
             url: '/user/role/multipledelete',
             type: 'POST',
             data: JSON.stringify({'items': array_delete}),
             contentType: 'application/json',
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
                 if (data.status) {
                     $('#multiple-delete').hide();
@@ -216,4 +220,21 @@ jQuery(document).ready(function () {
             }
         });
     });
+
+    $(document).on('click', '.role-item', function (event) {
+        var _id = $(this).attr('data-id');
+        var _flag = $(this).attr('data-flag');
+        $.ajax({
+            url: '/user/role/update/item',
+            type: 'POST',
+            data: JSON.stringify({'id': _id, 'flag': _flag}),
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+                if (data.status) {
+                    table.draw();
+                }
+            }
+        });
+    })
 });

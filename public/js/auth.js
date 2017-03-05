@@ -7,6 +7,8 @@ jQuery(document).ready(function () {
     var is_agree_terms = false;
 
     $('#login').submit(function (event) {
+        $('#success').hide();
+        $('#error').hide();
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({
@@ -16,9 +18,7 @@ jQuery(document).ready(function () {
             cache: false,
             processData: false,
             success: function (data) {
-                $('#error').hide();
                 if (!data.status) {
-                    $('#success').hide();
                     $('#error').text(data.message).show();
                 } else {
                     location.href = '/dashboard';

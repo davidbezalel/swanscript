@@ -74,6 +74,7 @@ jQuery(document).ready(function () {
     });
 
     $('#register').submit(function (event) {
+        $('#error').hide();
         event.preventDefault();
         var data = $(this).serialize();
         $.ajax({

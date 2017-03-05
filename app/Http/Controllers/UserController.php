@@ -419,6 +419,26 @@ class UserController extends Controller
         }
     }
 
+    public function roleItemUpdate(Request $request)
+    {
+        if ($this->isPost()) {
+            $id = $request['id'];
+            $flag = $request['flag'];
+            $user_role_model = new UserRole();
+            $user_role_item = $user_role_model->find($id)[$flag];
+            $where = array(
+                ['id', '=', $id]
+            );
+            $data = array(
+                $flag => $user_role_item == 1 ? 0 : 1
+            );
+            if ($user_role_model->update_v2($where, $data)) {
+                $this->response_json->status = true;
+            }
+            return $this->__json();
+        }
+    }
+
     public function roleMultipleDelete(Request $request)
     {
         if ($this->isPost()) {
