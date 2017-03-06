@@ -97,19 +97,21 @@ jQuery(document).ready(function () {
 
     $(document).on('click', '.delete-item', function (e) {
         e.preventDefault();
-        var _id = $(this).attr('data-id');
-        $.ajax({
-            url: '/user/delete',
-            type: 'POST',
-            data: {'id': _id},
-            dataType: 'JSON',
-            cache: false,
-            success: function (data) {
-                console.log(data);
-                if (data.status) {
-                    table.draw();
+        if (confirm("Are you sure want to delete this item?") == true) {
+            var _id = $(this).attr('data-id');
+            $.ajax({
+                url: '/user/delete',
+                type: 'POST',
+                data: {'id': _id},
+                dataType: 'JSON',
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data.status) {
+                        table.draw();
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 });
