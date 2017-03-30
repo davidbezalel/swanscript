@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{!! $data['title'] !!}</title>
+    <link rel="icon" href="/assets/default_icons/logo.png">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
