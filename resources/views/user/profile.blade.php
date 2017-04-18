@@ -173,7 +173,7 @@
 
                         <div class="tab-pane" id="profile">
                             <form action="" id="update_profile" class="form-horizontal">
-                                <input type="hidden" id="id" name="id" value="{!! Auth::user()->id !!}">
+                                <input type="hidden" id="id" name="id" value="<?php echo($data['id']); ?>">
                                 <input type="hidden" id="flag" name="flag" value="1">
 
                                 <div class="alert alert-success" id="update_profile_success"></div>

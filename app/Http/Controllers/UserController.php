@@ -145,7 +145,7 @@ class UserController extends Controller
             if ($request['flag'] == 1) {
                 $user_profile_model = new UserProfile();
                 $where = array(
-                    'id' => $request['id']
+                    'id' => $id
                 );
                 $record = array();
                 foreach ($user_profile_model->getFillable() as $field) {

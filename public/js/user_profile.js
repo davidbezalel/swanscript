@@ -86,6 +86,7 @@ jQuery(document).ready(function () {
         $('#update_profile_success').hide();
         event.preventDefault();
         var data = $(this).serialize();
+        console.log(data);
         $.ajax({
             url: '/api/user/profile/update/' + id,
             type: 'POST',
@@ -94,6 +95,7 @@ jQuery(document).ready(function () {
             cache: true,
             success: function (data) {
                 if (data.status) {
+                    console.log(data);
                     $('#update_profile_success').show().text('Update Profile Success.');
                     load_user_data(id);
                 }
